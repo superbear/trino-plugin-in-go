@@ -1,7 +1,9 @@
-version: '2.1'
+version: "3"
+
 services:
   trino:
     image: trinodb/trino:402
+    container_name: trino
     volumes:
       - ./target/trino-plugin-in-go-402:/lib/trino/plugin/trino-plugin-in-go-402
     ports:
