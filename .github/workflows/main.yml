@@ -1,0 +1,39 @@
+name: Trino Plugin in Go
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        java: [17, 18, 19]
+      fail-fast: false
+    name: Test JDK ${{ matrix.java }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: ${{ matrix.java }}
+          cache: 'maven'
+
+        # https://stackoverflow.com/questions/64706720/how-to-access-maven-dependency-from-github-packages-on-a-github-actions-workflow
+      - name: Test
+        env:
+          USERNAME: ${{ secrets.USERNAME }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        run: |
+          mvn -s $GITHUB_WORKSPACE/.m2/settings.xml clean test --file pom.xml -Dcheckstyle.skipExec=true

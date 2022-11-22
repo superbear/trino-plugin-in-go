@@ -1,0 +1,8 @@
+version: '2.1'
+services:
+  trino:
+    image: trinodb/trino:402
+    volumes:
+      - ./target/trino-plugin-in-go-402:/lib/trino/plugin/trino-plugin-in-go-402
+    ports:
+     - "8080:8080"
