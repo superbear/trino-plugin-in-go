@@ -5,6 +5,6 @@ services:
     image: trinodb/trino:402
     container_name: trino
     volumes:
-      - ./target/trino-plugin-in-go-402:/lib/trino/plugin/trino-plugin-in-go-402
+      - ./target/trino-plugin-in-go-402:/usr/lib/trino/plugin/trino-plugin-in-go-402
     ports:
      - "8080:8080"
