@@ -5,8 +5,7 @@
 - https://github.com/superbear/java-call-go
 
 ## How to build
-
-### Build JAR
+### Build
 ```bash
 mvn clean package -Dcheckstyle.skipExec=true -DskipTests
 ```
@@ -17,16 +16,21 @@ This creates a `target/trino-plugin-in-go-402` directory.
 mvn clean test -Dcheckstyle.skipExec=true
 ```
 
-## Running the container
+## Usage
+Running the container
 ```bash
 docker compose up -d
+```
 
-docker exec -ti trino trino
-
-# restart container after rebuild plugin
+Restart container after rebuild plugin
+```bash
 docker restart trino
 ```
 
+Executing queries
+```bash
+docker exec -ti trino trino
+```
 ```sql
 trino> SELECT atoi('123');
 trino> SELECT toupper('hello world');
